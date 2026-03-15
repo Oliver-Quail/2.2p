@@ -37,11 +37,11 @@ public class MainActivity extends AppCompatActivity {
         int target = 0;
         double value = 1;
 
-        String[] inputTypes = {"Inch", "Feet", "Yard", "Mile", "Centre Meters", "Kilometers", "Pound", "Ounce", "Ton", "Gram", "Kilogram", "Celsius", "Fahrenheit", "Kelvin"};
+        String[] inputTypes = {"USD", "AUD", "EUR", "JPY", "GBP", "Miles Per Gallon", "Kilometers Per Liter", "Gallon", "Liters", "Nautical Mile", "Kilometer", "Celsius", "Fahrenheit", "Kelvin"};
 
-        String[] lengthTypes = {"Inch", "Feet", "Yard", "Mile", "Centre Meters", "Kilometers"};
+        String[] lengthTypes = {"USD", "AUD", "EUR", "JPY", "GBP"};
 
-        String[] weightTypes = {"Pound", "Ounce", "Ton", "Gram", "Kilogram"};
+        String[] weightTypes = {"Miles Per Gallon", "Kilometers Per Liter", "Gallon", "Liters", "Nautical Mile", "Kilometer"};
 
         String[] temperatureTypes = {"Celsius", "Fahrenheit", "Kelvin"};
 
@@ -59,11 +59,41 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 //AutoCompleteTextView outputType = (AutoCompleteTextView)findViewById(R.id.autoCompleteTextViewOutputType);
-                if(position <= 5) {
+                if(position <= 4) {
                     ArrayAdapter<String> adapterOutput = new ArrayAdapter(ctx, com.google.android.material.R.layout.support_simple_spinner_dropdown_item, lengthTypes);
                     outputSpinner.setAdapter(adapterOutput);
                 }
-                else if(position <= 10) {
+                else if(position == 5) {
+                    String[] temp = {"Kilometers Per Liter"};
+                    ArrayAdapter<String> adapterOutput = new ArrayAdapter(ctx, com.google.android.material.R.layout.support_simple_spinner_dropdown_item, temp);
+                    outputSpinner.setAdapter(adapterOutput);
+                }
+                else if(position == 6) {
+                    String[] temp = {"Miles Per Gallon"};
+                    ArrayAdapter<String> adapterOutput = new ArrayAdapter(ctx, com.google.android.material.R.layout.support_simple_spinner_dropdown_item, temp);
+                    outputSpinner.setAdapter(adapterOutput);
+                }
+                else if(position == 7) {
+                    String[] temp = {"Liters"};
+                    ArrayAdapter<String> adapterOutput = new ArrayAdapter(ctx, com.google.android.material.R.layout.support_simple_spinner_dropdown_item, temp);
+                    outputSpinner.setAdapter(adapterOutput);
+                }
+                else if(position == 8) {
+                    String[] temp = {"Gallons"};
+                    ArrayAdapter<String> adapterOutput = new ArrayAdapter(ctx, com.google.android.material.R.layout.support_simple_spinner_dropdown_item, temp);
+                    outputSpinner.setAdapter(adapterOutput);
+                }
+                else if(position == 9) {
+                    String[] temp = {"Kilometers"};
+                    ArrayAdapter<String> adapterOutput = new ArrayAdapter(ctx, com.google.android.material.R.layout.support_simple_spinner_dropdown_item, temp);
+                    outputSpinner.setAdapter(adapterOutput);
+                }
+                else if(position == 10) {
+                    String[] temp = {"Nautical Miles"};
+                    ArrayAdapter<String> adapterOutput = new ArrayAdapter(ctx, com.google.android.material.R.layout.support_simple_spinner_dropdown_item, temp);
+                    outputSpinner.setAdapter(adapterOutput);
+                }
+                else if(position <= 11) {
                     ArrayAdapter<String> adapterOutput = new ArrayAdapter(ctx, com.google.android.material.R.layout.support_simple_spinner_dropdown_item, weightTypes);
                     outputSpinner.setAdapter(adapterOutput);
                 }
@@ -106,90 +136,61 @@ public class MainActivity extends AppCompatActivity {
     public double convertUnit(int source, int target, double input) {
         double result = 0.0;
 
-        double[] lengths = {2.54, 30.48, 91.44, 1.60934};
-        double[] massConversions = {0.453592, 28.3495, 907.285};
+        double[] lengths = {1.55,0.92,148.50,0.78};
 
         // Convert to CM
-        if(source < 3) {
-            result = input * lengths[source];
-            if(target == 4) {
-                return result;
+        if(source <= 4) {
+            double usdAmount = 0.0;
+            switch (source){
+                case 0:
+                    usdAmount = input;
+                    break;
+                case 1:
+                    usdAmount = input / lengths[0];
+                    break;
+                case 2:
+                    usdAmount = input / lengths[1];
+                    break;
+                case 3:
+                    usdAmount = input / lengths[2];
+                    break;
+                case 4:
+                    usdAmount = input / lengths[3];
+                    break;
             }
-            else if (target < 3) {
-                return result / lengths[target];
-            }
-            else {
-                return  result /100000;
-            }
-        }
-        else if(source == 3) {
-            result = input * 1.60934 * 1000 * 100;
-            if(target < 3) {
-                return  result / lengths[target];
-            }
-            else if(target == 3) {
-                return result;
-            }
-            else {
-                return result / 100000;
-            }
-        }
-        else if(source == 4) {
-            if(target < 3) {
-                return input * lengths[target];
-            }
-            else if(target == 3) {
-                return  input/(100000 * (lengths[target]));
-            }
-            else {
-                return input / 100000;
-            }
-        }
-        else if(source == 5) {
-            //convert to cm
-            result = input / 100000;
-            if(target == 4) {
-                return result;
-            }
-            else if (target < 3) {
-                return result * lengths[target];
-            }
-            else {
-                return  result /(100000 * lengths[target]);
-            }
-
-        }
-
-        else if(source < 11) {
-            result = input;
-            // Convert everything to be in grams
-            if(source == 6 || source == 8) {
-                result = input * massConversions[source -6] * 1000;
-            }
-            if(source == 7) {
-                result = input * massConversions[source -6];
-            }
-            else if(source == 10) {
-                result = input * 1000;
-            }
-
             switch (target) {
                 case 0:
-                    return result / (massConversions[target]*1000);
+                    return usdAmount;
                 case 1:
-                    return result / massConversions[target];
+                    return usdAmount * lengths[0];
                 case 2:
-                    return result / (massConversions[target]*1000);
+                    return input * lengths[1];
                 case 3:
-                    return result;
+                    return input * lengths[2];
                 case 4:
-                    return result /1000;
+                    return input * lengths[3];
+            }
+        }
+        else if(source <= 10) {
+            switch (source) {
+                case 5:
+                    return input * 0.425;
+                case 6:
+                    return input / 0.425;
+                case 7:
+                    return input * 3.785;
+                case 8:
+                    return input / 3.785;
+                case 9:
+                    return input * 1.852;
+                case 10:
+                    return input / 1.852;
+
             }
 
         }
 
-
-        if(source == 11) {
+        else if(source == 11) {
             if(target == 12) {
                 return input*1.8 + 32;
             }
@@ -197,7 +198,7 @@ public class MainActivity extends AppCompatActivity {
                 return input + 273.15;
             }
         }
-        if(source == 12) {
+        else if(source == 12) {
             if(target == 11) {
                 return (input-32)/1.8;
             }
