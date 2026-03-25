@@ -6,7 +6,7 @@ It can convert the following currencies:
 - AUD
 - EUR
 - JPY
-- GBP
+- GBP \\
 It can also convert the following Fuel efficeny & distance measurements:
 - Miles per Gallon <-> Kilometers per Liter
 - Gallon <-> Liters
