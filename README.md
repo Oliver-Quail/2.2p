@@ -6,11 +6,11 @@ It can convert the following currencies:
 - AUD
 - EUR
 - JPY
-- GBP \\
+- GBP \n
 It can also convert the following Fuel efficeny & distance measurements:
 - Miles per Gallon <-> Kilometers per Liter
 - Gallon <-> Liters
-- Nautical Mile <-> Kilometers
+- Nautical Mile <-> Kilometers \n
 Finally it can convert between the following temperature formats:
 - Celsius
 - Fahrenheit
